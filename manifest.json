@@ -1,13 +1,15 @@
 {
-	"manifest_version": 2,
   "name": "EPC",
-  "version": "1.0",
+  "description": "间隔一段时间刷新epc选课界面，自动预约指定时间的课",
+  "manifest_version": 2,
+  "version": "0.1.0",
   
   "content_scripts": [
     {
-      "matches": ["http://epc.ustc.edu.cn/m_practice.asp*","http://epc.ustc.edu.cn/m_service.asp*",
-			"http://epc.ustc.edu.cn/m_englishuse.asp*"],
-      "js": ["jquery.js","epc.user.js"]
+      "matches": ["http://epc.ustc.edu.cn/m_practice.asp*"],
+      "js": ["jquery.js","epc.user.js"],
+      "all_frames":true,
+      "run_at":"document_end"
     },
 	{
 		"matches": ["http://epc.ustc.edu.cn/main.asp"],
