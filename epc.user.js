@@ -52,15 +52,18 @@ function main(){
 		obj.time = $(this).find('td:eq(5)').html().toString();
 		obj.time = obj.time.substring(obj.time.search('>')+1);
 		
-		obj.size = parseInt($(this).find('td:eq(9)').text());
-		obj.students = parseInt($(this).find('td:eq(10)').text());
 		obj.btn = $(this).find('td:eq(12)');
 		course.push(obj);
 	});
 	
 	var count = 0;
+	//var flag = 0;
 	
 	for(var i=0;i<course.length;i++){
+		if(course[i].btn.text().trim()=="已达预约上限"){
+			//flag = 1;
+			break;
+		}
 		var courseWeek = parseInt(course[i].week.match(/\d+/)[0]);
 		//周数不符
 		if(courseWeek < configlist.startWeek || courseWeek > configlist.endWeek) {
@@ -73,29 +76,16 @@ function main(){
 			continue;
 		}
 		//课程无法选择
-		if(course[i].btn.find(':submit').is(':disabled') || course[i].btn.find(':submit').val()!='预 约'
-			|| course[i].btn.text().trim()=="已达选课上限"){
+		if(course[i].btn.find(':submit').is(':disabled') || course[i].btn.find(':submit').val()!='预 约'){
 			count++;
 			continue;
 		}
 		
-		
 		var form = course[i].btn.parent('tr').prev('form');
-		(function(i){
-		$.post(form.attr('action'),"submit_type=book_submit",function(data){
-			//console.log(data);
-			if(data.indexOf('预约成功')!=-1){
-				if(localStorage['version']=='dev'){
-					$.get('http://127.0.0.1/epc/?log='+course[i].week+'%20'+course[i].day+'%20'+course[i].time+'%20'+course[i].name);
-				}
-			}
-			count++;
-			if(count==course.length){
-				$(document).trigger('next');
-			}
-			
-		});
-		})(i);
+		(function(){
+		$.post(form.attr('action'),"submit_type=book_submit");
+		count++;
+		})();
 		
 	}
 	if(count==course.length){
@@ -105,13 +95,23 @@ function main(){
 }
 
 $(document).bind('next',function(){
+	var myhour = new Date().getHours();
+	//console.log(myhour);
+	//console.log(myhour < 1 || myhour > 7);
 	var T = 5000;
 	url = 'http://epc.ustc.edu.cn/' + $('a[title="上一页"]').attr('href').trim();
 	//console.log('333');
-	setTimeout(function(){
-		//console.log('222');
-		location.href=url;
-	},T);
+
+	if(myhour < 1 || myhour > 7){
+		setTimeout(function(){
+			location.href=url;
+		},2*T);
+	} else{
+		setTimeout(function(){
+			location.href=url;
+		},4*T);
+	}
+	
 	
 });
 
