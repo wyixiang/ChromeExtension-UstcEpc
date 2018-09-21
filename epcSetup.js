@@ -8,6 +8,7 @@ var timeSeg =
 {
 	'Situational Dialogue':['08:25-09:15','16:40-17:30'],
 	'Topical Discussion':['09:45-11:25','14:30-16:10','19:00-20:40'],
+	'Debate':['09:45-11:25','14:30-16:10','19:00-20:40'],
 	'Drama':['19:00-20:40']
 };
 var html = '<style>#time li li{display:inline-block;}</style><ul id="time" style="list-style:none;">';
@@ -22,7 +23,7 @@ for(var i in timeSeg){
 	for(var j in week){
 		for(var k in timeSeg[i]){
 			var checked='';
-			var dt = week[j]+' '+timeSeg[i][k];
+			var dt = week[j]+' '+timeSeg[i][k]+' '+i;//加入课程名称i
 			if(adaytime.indexOf(dt)!=-1){
 				checked = 'checked';
 			}

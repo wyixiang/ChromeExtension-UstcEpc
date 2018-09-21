@@ -29,14 +29,24 @@ var config = new Config();
 var configlist = config.get();
 
 function main(){
+	/*  课程信息采集  */
+	//console.dir($('table table table:first tr'));
+	var pageText = $('table table table:first tr:last').text().trim();
+	var pageData = pageText.split('>>')
+	//console.log(pageText);
+	//console.log(pageData[2]);
+
 	/*  登录提示  */
-	var pageText = $('table table table:last tr:last').text();
-	if(pageText=="登录后可以查看详细信息"){
+	var loginText = $('table table table:last tr:last').text();
+	if(loginText=="登录后可以查看详细信息"){
 		alert('你没有登录');
 		return ;
 	}
-	//console.log('1111');
-	//console.log(c.adaytime);
+
+	/*  页面层数不足时返回  */
+	if(pageData.length != 3){
+		return ;
+	}
 	
 	var rootTable = $('table table table table:eq(0)');
 	var course = [];
@@ -71,10 +81,11 @@ function main(){
 			continue;
 		}
 		//星期&时间不符
-		if(configlist.adaytime.indexOf(course[i].day+' '+course[i].time)==-1){
+		if(configlist.adaytime.indexOf(course[i].day+' '+course[i].time+' '+pageData[2])==-1){
 			count++;
 			continue;
 		}
+		//console.log('星期&时间pass');
 		//课程无法选择
 		if(course[i].btn.find(':submit').is(':disabled') || course[i].btn.find(':submit').val()!='预 约'){
 			count++;
