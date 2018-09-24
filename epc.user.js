@@ -107,7 +107,9 @@ function main(){
 
 $(document).bind('next',function(){
 	var myhour = new Date().getHours();
-	//console.log(myhour);
+	var myMinute = new Date().getMinutes();
+	var mySecond = new Date().getSeconds();
+	console.log(myhour+":"+myMinute+":"+mySecond);
 	//console.log(myhour < 1 || myhour > 7);
 	var T = 5000;
 	url = 'http://epc.ustc.edu.cn/' + $('a[title="上一页"]').attr('href').trim();
