@@ -40,6 +40,13 @@ function main(){
 	var loginText = $('table table table:last tr:last').text();
 	if(loginText=="登录后可以查看详细信息"){
 		alert('你没有登录');
+		/*$.post('n_left.asp','submit_type=user_login&name=SA18011058'+'&pass=895451'+'&txt_check=&user_type=2&Submit=LOG+IN',function(data){
+			console.log('Log in OK!');
+			//location.reload();
+			setTimeout(function(){
+				location.reload();
+			},10000);
+		});*/
 		return ;
 	}
 
@@ -112,16 +119,18 @@ $(document).bind('next',function(){
 	console.log(myhour+":"+myMinute+":"+mySecond);
 	//console.log(myhour < 1 || myhour > 7);
 	var T = 5000;
-	url = 'http://epc.ustc.edu.cn/' + $('a[title="上一页"]').attr('href').trim();
+	//url = 'http://epc.ustc.edu.cn/' + $('a[title="上一页"]').attr('href').trim();
 	//console.log('333');
 
 	if(myhour < 1 || myhour > 7){
 		setTimeout(function(){
-			location.href=url;
+			//location.href=url;
+			location.reload();
 		},2*T);
 	} else{
 		setTimeout(function(){
-			location.href=url;
+			//location.href=url;
+			location.reload();
 		},4*T);
 	}
 	
