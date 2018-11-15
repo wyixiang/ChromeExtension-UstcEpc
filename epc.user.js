@@ -78,6 +78,7 @@ function main(){
 	
 	for(var i=0;i<course.length;i++){
 		if(course[i].btn.text().trim()=="已达预约上限"){
+			alert('已达预约上限');
 			//flag = 1;
 			break;
 		}
@@ -101,7 +102,15 @@ function main(){
 		
 		var form = course[i].btn.parent('tr').prev('form');
 		(function(){
-		$.post(form.attr('action'),"submit_type=book_submit");
+		$.post(form.attr('action'),"submit_type=book_submit",(function(course){
+			return function(data){
+				//console.log(data);
+				if(data.indexOf('预约成功')!=-1){
+					alert('预约成功: '+course.name+' '+course.week+course.day);
+				}
+			}
+		})(course[i])
+		);
 		count++;
 		})();
 		

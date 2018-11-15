@@ -2,7 +2,7 @@
   "name": "EPC",
   "description": "间隔一段时间刷新epc选课界面，自动预约指定时间的课",
   "manifest_version": 2,
-  "version": "0.2.0",
+  "version": "0.2.1",
   
   "content_scripts": [
     {
