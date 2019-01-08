@@ -40,7 +40,7 @@ function main(){
 	var loginText = $('table table table:last tr:last').text();
 	if(loginText=="登录后可以查看详细信息"){
 		alert('你没有登录');
-		/*$.post('n_left.asp','submit_type=user_login&name=SA18011058'+'&pass=895451'+'&txt_check=&user_type=2&Submit=LOG+IN',function(data){
+		/*$.post('n_left.asp','submit_type=user_login&name='+'&pass='+'&txt_check=&user_type=2&Submit=LOG+IN',function(data){
 			console.log('Log in OK!');
 			//location.reload();
 			setTimeout(function(){
